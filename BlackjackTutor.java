@@ -15,11 +15,17 @@ public class BlackjackTutor {
             if (selection.equals("3")) {
                 break;
             }
+            else if (selection.equals("1")) {
+                Hand singleHand = new Hand();
+            }
         }
         input.close();
     }
 
-    public void singleHand(Scanner input) {
+    public static void singleHand(Scanner input) {
         
+        System.out.println("");
+        System.out.println("Valid entries: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K");
+        System.out.print("Enter your first card: ");
     }
 }
