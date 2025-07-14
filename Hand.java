@@ -8,4 +8,13 @@ public class Hand {
         this.dealerCard = dealerCard;
         this.playerCards = playerCards;
     }
+
+    public String getDealerCard() {
+        return dealerCard;
+    }
+
+    public ArrayList<String> getPlayerCards() {
+        return playerCards;
+    }
+
 }
