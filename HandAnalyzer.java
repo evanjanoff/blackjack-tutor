@@ -1,13 +1,14 @@
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class AnalyzePlay {
+public class HandAnalyzer {
     private static final Map<String, Integer> CARD_VALUES;
 
     static {
-        Map<String, Integer> tempMap = new HashMap<>();
+        Map<String, Integer> tempMap = new LinkedHashMap<>();
         tempMap.put("A", 1);
         tempMap.put("2", 2);
         tempMap.put("3", 3);
