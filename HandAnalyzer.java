@@ -7,6 +7,8 @@ public class HandAnalyzer {
     private static final Map<String, Integer> CARD_VALUES = ReferenceTables.getCardValues();
     // Copy table for splitting cards from reference
     private static final boolean[][] SPLIT_TABLE = ReferenceTables.getSplitTable();
+    private static final String[][] SOFT_TOTALS = ReferenceTables.getSoftTotals();
+    private static final String[][] HARD_TOTALS = ReferenceTables.getHardTotals();
 
     // Get List of cards 
     public static ArrayList<String> getCards() {
@@ -26,7 +28,7 @@ public class HandAnalyzer {
         }
 
         // Surrender and split are actions that can only happen when the player has 2 cards
-        // Check that the player has 2 cards
+        // Check so this block will only run if the player has exactly 2 cards
         if (playerCards.size() == 2) {
             // The first decision is if the player should surrender
             // The player should not surrender if they hold a pair of the same card
@@ -46,7 +48,22 @@ public class HandAnalyzer {
             }
         }
 
-        return "something";
+        // Remaining logic depends on if the player has an ace in their hand
+        // Check for ace
+        if (toAnalyze.getPlayerCards().contains("A")) {
+            return checkSoftTotal(dealerCardValue, playerCardTotal);
+        }
+
+        // If none of the previous conditions are met, this section will run
+        if (playerCardTotal >= 17) {
+            return "stand";
+        } 
+        else if (playerCardTotal <= 8) {
+            return "hit";
+        }
+        else {
+            return checkHardTotal(dealerCardValue, playerCardTotal);
+        }
     }
 
     // Checks card values and returns true if the player should surrender
@@ -68,13 +85,22 @@ public class HandAnalyzer {
         int playerTotalAsIndex = playerCardTotal / 2 - 1;
         int dealerCardAsIndex = dealerCardValue - 1;
 
-        // DEBUG: print split table
-        for (int row = 0; row < SPLIT_TABLE.length; row++) {
-            for (int col = 0; col < SPLIT_TABLE[row].length; col++) {
-                System.out.print(SPLIT_TABLE[row][col] + "\t"); // Print with tab spacing
-            }
-            System.out.println();
-        }
         return SPLIT_TABLE[playerTotalAsIndex][dealerCardAsIndex];
+    }
+
+    public static String checkSoftTotal(int dealerCardValue, int playerCardTotal) {
+        // Convert point values to related index on the SOFT_TOTALS table
+        int playerTotalAsIndex = playerCardTotal - 3;
+        int dealerCardAsIndex = dealerCardValue - 1;
+
+        return SOFT_TOTALS[playerTotalAsIndex][dealerCardAsIndex];
+    }
+
+    public static String checkHardTotal(int dealerCardValue, int playerCardTotal) {
+        // Convert point values to related index on the HARD_TOTALS table
+        int playerTotalAsIndex = playerCardTotal - 9;
+        int dealerCardAsIndex = dealerCardValue - 1;
+
+        return HARD_TOTALS[playerTotalAsIndex][dealerCardAsIndex];
     }
 }
