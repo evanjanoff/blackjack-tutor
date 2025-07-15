@@ -43,26 +43,57 @@ public class HandAnalyzer {
         for (String card: playerCards) {
             playerCardTotal += CARD_VALUES.get(card);
         }
-        // Surrender is limited to the player's first action, ie the player will have 2 cards
-        // Check that the player has 2 cards and the values recommend surrender
-        if (playerCards.size() == 2) {
-            if (playerCardTotal == 15 && dealerCardValue == 10) {
-                return "surrender";
-            }
-            if (playerCardTotal == 16 && !playerCards.get(0).equals(playerCards.get(1)) &&
-                (dealerCardValue == 1 || dealerCardValue == 9 || dealerCardValue == 10)) {
-                return "surrender";
-            }
-        }
 
-        // Splitting is limited to the player's first action and requires a pair of the same card
-        // Check that the player has 2 cards, they are the same
-        if (playerCards.size() == 2 && playerCards.get(0).equals(playerCards.get(1))) {
-            if (playerCardTotal == 2 || playerCardTotal == 16) {
-                return "split";
+        // Surrender and split are actions that can only happen when the player has 2 cards
+        // Check that the player has 2 cards
+        if (playerCards.size() == 2) {
+            // The first decision is if the player should surrender
+            // The player should not surrender if they hold a pair of the same card
+            // Check that the player does not hold a pair
+            if (!playerCards.get(0).equals(playerCards.get(1))) {
+                // Method to decide if player should surrender
+                if (checkForSurrender(dealerCardValue, playerCardTotal))
+                    return "surrender";
+            }
+            // This code block will only run if the player holds a pair
+            else {
+                // Splitting is to seperate a pair into 2 seperate hands
+                // Method to decide if the player should split
+                if (checkForSplit(dealerCardValue, playerCardTotal)) {
+                    return "split";
+                }
             }
         }
 
         return "something";
+    }
+
+    // Checks card values and returns true if the player should surrender
+    public static boolean checkForSurrender(int dealerCardValue, int playerCardTotal) {
+        if (playerCardTotal == 15 && dealerCardValue == 10) {
+                return true;
+            }
+        else if (playerCardTotal == 16 &&
+            (dealerCardValue == 1 || dealerCardValue == 9 || dealerCardValue == 10)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Checks card values and returns true if the player should split
+    public static boolean checkForSplit(int dealerCardValue, int playerCardTotal) {
+        // Table of boolean elements for when to split pair, all elements are 'false' by default
+        // Table will be accessed by converting card values to match indices of table
+        boolean[][] splitTable = new boolean[10][10];
+        // Convert relevant elements to 'true'
+
+        for (int row = 0; row < splitTable.length; row++) {
+            for (int col = 0; col < splitTable[row].length; col++) {
+                System.out.print(splitTable[row][col] + "\t"); // Print with tab spacing
+            }
+            System.out.println();
+        }
+        return false;
     }
 }
