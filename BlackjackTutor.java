@@ -25,12 +25,12 @@ public class BlackjackTutor {
                 String dealerCard;
                 ArrayList<String> playerCards = new ArrayList<>();
                 // List of valid card entries to check player inputs
-                ArrayList<String> validEntries = HandAnalyzer.getKeys();
+                ArrayList<String> validEntries = HandAnalyzer.getCards();
                 // Boolean to control the while loops in the logic to come
                 Boolean validEntry = false;
 
                 // Lists the valid entries
-                System.out.println("\nValid selections: " + validEntries);
+                System.out.println("\nValid selections: " + String.join(", ", validEntries));
 
                 // Prompt to enter dealer's card until a valid entry is made
                 while (validEntry == false) {

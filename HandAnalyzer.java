@@ -1,34 +1,15 @@
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class HandAnalyzer {
-    // Map of the cards and their associated point values
-    // Card suit is ignored because it isn't relevant
-    private static final Map<String, Integer> CARD_VALUES;
-
-    static {
-        Map<String, Integer> tempMap = new LinkedHashMap<>();
-        tempMap.put("A", 1);
-        tempMap.put("2", 2);
-        tempMap.put("3", 3);
-        tempMap.put("4", 4);
-        tempMap.put("5", 5);
-        tempMap.put("6", 6);
-        tempMap.put("7", 7);
-        tempMap.put("8", 8);
-        tempMap.put("9", 9);
-        tempMap.put("10", 10);
-        tempMap.put("J", 10);
-        tempMap.put("Q", 10);
-        tempMap.put("K", 10);
-        CARD_VALUES = Collections.unmodifiableMap(tempMap);
-    }
+    // Copy card value map from reference
+    private static final Map<String, Integer> CARD_VALUES = ReferenceTables.getCardValues();
+    // Copy table for splitting cards from reference
+    private static final boolean[][] SPLIT_TABLE = ReferenceTables.getSplitTable();
 
     // Get List of cards 
-    public static ArrayList<String> getKeys() {
+    public static ArrayList<String> getCards() {
         Set<String> keySet = CARD_VALUES.keySet();
         return new ArrayList<>(keySet);
     }
@@ -83,17 +64,17 @@ public class HandAnalyzer {
 
     // Checks card values and returns true if the player should split
     public static boolean checkForSplit(int dealerCardValue, int playerCardTotal) {
-        // Table of boolean elements for when to split pair, all elements are 'false' by default
-        // Table will be accessed by converting card values to match indices of table
-        boolean[][] splitTable = new boolean[10][10];
-        // Convert relevant elements to 'true'
+        // Convert point values to related index on the SPLIT_TABLE
+        int playerTotalAsIndex = playerCardTotal / 2 - 1;
+        int dealerCardAsIndex = dealerCardValue - 1;
 
-        for (int row = 0; row < splitTable.length; row++) {
-            for (int col = 0; col < splitTable[row].length; col++) {
-                System.out.print(splitTable[row][col] + "\t"); // Print with tab spacing
+        // DEBUG: print split table
+        for (int row = 0; row < SPLIT_TABLE.length; row++) {
+            for (int col = 0; col < SPLIT_TABLE[row].length; col++) {
+                System.out.print(SPLIT_TABLE[row][col] + "\t"); // Print with tab spacing
             }
             System.out.println();
         }
-        return false;
+        return SPLIT_TABLE[playerTotalAsIndex][dealerCardAsIndex];
     }
 }
