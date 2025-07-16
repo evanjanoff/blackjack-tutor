@@ -112,6 +112,7 @@ public class ReferenceTables {
         }
     }
 
+    // Return 2D array of optimal when to split
     public static boolean[][] getSplitTable() {
         return splitTable;
     }
@@ -125,76 +126,77 @@ public class ReferenceTables {
                 // Player holds A, 2 or A, 3
                 case 0, 1 -> {
                     for (int dealerIndex = 0; dealerIndex < 4; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "hit";
+                        softTotals[playerIndex][dealerIndex] = "Hit";
                     }
                     for (int dealerIndex = 4; dealerIndex < 6; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "double";
+                        softTotals[playerIndex][dealerIndex] = "Double";
                     }
                     for (int dealerIndex = 6; dealerIndex < 10; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "hit";
+                        softTotals[playerIndex][dealerIndex] = "Hit";
                     }
                 }
                 // Player holds A, 4 or A, 5
                 case 2, 3 -> {
                     for (int dealerIndex = 0; dealerIndex < 3; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "hit";
+                        softTotals[playerIndex][dealerIndex] = "Hit";
                     }
                     for (int dealerIndex = 3; dealerIndex < 6; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "double";
+                        softTotals[playerIndex][dealerIndex] = "Double";
                     }
                     for (int dealerIndex = 6; dealerIndex < 10; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "hit";
+                        softTotals[playerIndex][dealerIndex] = "Hit";
                     }
                 }
                 // Player holds A, 6
                 case 4 -> {
                     for (int dealerIndex = 0; dealerIndex < 2; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "hit";
+                        softTotals[playerIndex][dealerIndex] = "Hit";
                     }
                     for (int dealerIndex = 2; dealerIndex < 6; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "double";
+                        softTotals[playerIndex][dealerIndex] = "Double";
                     }
                     for (int dealerIndex = 6; dealerIndex < 10; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "hit";
+                        softTotals[playerIndex][dealerIndex] = "Hit";
                     }
                 }
                 // Player holds A, 7
                 case 5 -> {
                     for (int dealerIndex = 0; dealerIndex < 1; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "hit";
+                        softTotals[playerIndex][dealerIndex] = "Hit";
                     }
                     for (int dealerIndex = 1; dealerIndex < 6; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "double";
+                        softTotals[playerIndex][dealerIndex] = "Double";
                     }
                     for (int dealerIndex = 6; dealerIndex < 8; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "stand";
+                        softTotals[playerIndex][dealerIndex] = "Stand";
                     }
                     for (int dealerIndex = 8; dealerIndex < 10; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "hit";
+                        softTotals[playerIndex][dealerIndex] = "Hit";
                     }
                 }
                 // Player holds A, 8
                 case 6 -> {
                     for (int dealerIndex = 0; dealerIndex < 5; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "stand";
+                        softTotals[playerIndex][dealerIndex] = "Stand";
                     }
                     for (int dealerIndex = 5; dealerIndex < 6; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "double";
+                        softTotals[playerIndex][dealerIndex] = "Double";
                     }
                     for (int dealerIndex = 6; dealerIndex < 10; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "stand";
+                        softTotals[playerIndex][dealerIndex] = "Stand";
                     }
                 }
                 // Player holds A, 9
                 case 7 -> {
                     for (int dealerIndex = 0; dealerIndex < 10; dealerIndex++) {
-                        softTotals[playerIndex][dealerIndex] = "stand";
+                        softTotals[playerIndex][dealerIndex] = "Stand";
                     }
                 }
             }
         }
     }
 
+    // Return 2D array of optimal plays when player holds an Ace
     public static String[][] getSoftTotals() {
         return softTotals;
     }
@@ -208,61 +210,62 @@ public class ReferenceTables {
                 // Player total = 9
                 case 0 -> {
                     for (int dealerIndex = 0; dealerIndex < 2; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "hit";
+                        hardTotals[playerIndex][dealerIndex] = "Hit";
                     }
                     for (int dealerIndex = 2; dealerIndex < 6; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "double";
+                        hardTotals[playerIndex][dealerIndex] = "Double";
                     }
                     for (int dealerIndex = 6; dealerIndex < 10; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "hit";
+                        hardTotals[playerIndex][dealerIndex] = "Hit";
                     }
                 }
                 // Player total = 10
                 case 1 -> {
                     for (int dealerIndex = 0; dealerIndex < 1; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "hit";
+                        hardTotals[playerIndex][dealerIndex] = "Hit";
                     }
                     for (int dealerIndex = 1; dealerIndex < 9; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "double";
+                        hardTotals[playerIndex][dealerIndex] = "Double";
                     }
                     for (int dealerIndex = 9; dealerIndex < 10; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "hit";
+                        hardTotals[playerIndex][dealerIndex] = "Hit";
                     }
                 }
                 // Player total = 11
                 case 2 -> {
                     for (int dealerIndex = 0; dealerIndex < 10; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "double";
+                        hardTotals[playerIndex][dealerIndex] = "Double";
                     }
                 }
                 // Player total = 12
                 case 3 -> {
                     for (int dealerIndex = 0; dealerIndex < 3; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "hit";
+                        hardTotals[playerIndex][dealerIndex] = "Hit";
                     }
                     for (int dealerIndex = 3; dealerIndex < 6; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "stand";
+                        hardTotals[playerIndex][dealerIndex] = "Stand";
                     }
                     for (int dealerIndex = 6; dealerIndex < 10; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "hit";
+                        hardTotals[playerIndex][dealerIndex] = "Hit";
                     }
                 }
                 // Player total = 13, 14, 15, 16
                 case 4, 5, 6, 7 -> {
                     for (int dealerIndex = 0; dealerIndex < 1; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "hit";
+                        hardTotals[playerIndex][dealerIndex] = "Hit";
                     }
                     for (int dealerIndex = 1; dealerIndex < 6; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "stand";
+                        hardTotals[playerIndex][dealerIndex] = "Stand";
                     }
                     for (int dealerIndex = 6; dealerIndex < 10; dealerIndex++) {
-                        hardTotals[playerIndex][dealerIndex] = "hit";
+                        hardTotals[playerIndex][dealerIndex] = "Hit";
                     }
                 }
             }
         }
     }
 
+    // Return 2D array of optimal plays when player does not hold an Ace
     public static String[][] getHardTotals() {
         return hardTotals;
     }

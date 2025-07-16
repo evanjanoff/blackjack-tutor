@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Set;
 
 public class HandAnalyzer {
     // Copy card value map from reference
     private static final Map<String, Integer> CARD_VALUES = ReferenceTables.getCardValues();
     // Copy table for splitting cards from reference
     private static final boolean[][] SPLIT_TABLE = ReferenceTables.getSplitTable();
-    // Copy table for totals when player holds an A
+    // Copy table for totals when player holds an Ace
     private static final String[][] SOFT_TOTALS = ReferenceTables.getSoftTotals();
     // Copy table for other totals
     private static final String[][] HARD_TOTALS = ReferenceTables.getHardTotals();
@@ -32,14 +31,14 @@ public class HandAnalyzer {
             if (!playerCards.get(0).equals(playerCards.get(1))) {
                 // Method to decide if player should surrender
                 if (checkForSurrender(dealerCardValue, playerCardTotal))
-                    return "surrender";
+                    return "Surrender";
             }
             // This code block will only run if the player holds a pair
             else {
                 // Splitting is to seperate a pair into 2 seperate hands
                 // Method to decide if the player should split
                 if (checkForSplit(dealerCardValue, playerCardTotal)) {
-                    return "split";
+                    return "Split";
                 }
             }
         }
@@ -52,10 +51,10 @@ public class HandAnalyzer {
 
         // If none of the previous conditions are met, this section will run
         if (playerCardTotal >= 17) {
-            return "stand";
+            return "Stand";
         } 
         else if (playerCardTotal <= 8) {
-            return "hit";
+            return "Hit";
         }
         else {
             return checkHardTotal(dealerCardValue, playerCardTotal);

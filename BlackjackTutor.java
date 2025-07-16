@@ -78,13 +78,32 @@ public class BlackjackTutor {
 
             // Generate a random hand and quiz the player on best play
             if (selection.equals("2")) {
-                Hand randomHand = new Hand();
-                System.out.println("\nThe dealer has: " + randomHand.getDealerCard());
-                System.out.println("You have: " + String.join(", ", randomHand.getPlayerCards()));
-                System.out.println("What should you do? ");
-                System.out.println("\t1: Surrender\n\t2: Split\n\t3: Double\n\t4: Hit\n\t5: Stand");
-                System.out.print("Selection: ");
-
+                String[] gameMoves = {"Surrender", "Split", "Double", "Hit", "Stand"};
+                String newHand = "y";
+                while (!newHand.equals("n")) {
+                    Hand randomHand = new Hand();
+                    System.out.println("\nThe dealer has: " + randomHand.getDealerCard());
+                    System.out.println("You have: " + String.join(", ", randomHand.getPlayerCards()));
+                    System.out.println("\nWhat should you do?");
+                    for (int i = 0; i < gameMoves.length; i++) {
+                        System.out.println("\t" + (i + 1) + ": " + gameMoves[i]);
+                    }
+                    System.out.print("Selection: ");
+                    selection = scanner.nextLine().toLowerCase();
+                    if (selection.equals("1") || selection.equals("surrender")) {
+                        System.out.println("\nYou chose: surrender\nOptimal play: " + HandAnalyzer.analyze(randomHand));
+                    }
+                    boolean validEntry = false;
+                    while (validEntry == false) {
+                        System.out.print("\nAnother hand? Y/N: ");
+                        newHand = scanner.nextLine().toLowerCase(); 
+                        if (newHand.equals("y") || newHand.equals("n")) {
+                            validEntry = true;
+                        }
+                        else
+                            System.out.println("Invalid selection");
+                    }
+                }
             }
         }
         scanner.close();
