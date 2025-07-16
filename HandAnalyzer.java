@@ -7,14 +7,10 @@ public class HandAnalyzer {
     private static final Map<String, Integer> CARD_VALUES = ReferenceTables.getCardValues();
     // Copy table for splitting cards from reference
     private static final boolean[][] SPLIT_TABLE = ReferenceTables.getSplitTable();
+    // Copy table for totals when player holds an A
     private static final String[][] SOFT_TOTALS = ReferenceTables.getSoftTotals();
+    // Copy table for other totals
     private static final String[][] HARD_TOTALS = ReferenceTables.getHardTotals();
-
-    // Get List of cards 
-    public static ArrayList<String> getCards() {
-        Set<String> keySet = CARD_VALUES.keySet();
-        return new ArrayList<>(keySet);
-    }
 
     public static String analyze(Hand toAnalyze) {
         // Get the value of the dealer's up card

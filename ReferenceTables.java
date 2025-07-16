@@ -1,6 +1,9 @@
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 // Class to hold all of the reference tables for the program logic
 // Seperated out to minimize clutter in other classes
@@ -26,9 +29,23 @@ public class ReferenceTables {
         CARD_VALUES = Collections.unmodifiableMap(tempMap);
     }
 
-    // Method to copy map of cards
+    // Method to copy map of cards and their point values
     public static Map<String, Integer> getCardValues() {
         return CARD_VALUES;
+    }
+
+    // Get List of cards 
+    public static ArrayList<String> getCards() {
+        Set<String> keySet = CARD_VALUES.keySet();
+        return new ArrayList<>(keySet);
+    }
+
+    // Get one random card
+    public static String getRandomCard() {
+        Random random = new Random();
+        ArrayList<String> tmpList = getCards();
+        int randomIndex = random.nextInt(tmpList.size());
+        return tmpList.get(randomIndex);
     }
 
     // Table of boolean values for determining when to split cards

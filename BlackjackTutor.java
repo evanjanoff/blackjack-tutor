@@ -9,7 +9,7 @@ public class BlackjackTutor {
         // Prompt will repeat until a valid entry is made
         while (true) {
             System.out.println("\nChoose an option");
-            System.out.println("1: Analyze single hand\n2: Random hand quiz\n3: Quit");
+            System.out.println("\t1: Analyze single hand\n\t2: Random hand quiz\n\t3: Quit");
             System.out.print("Selection: ");
             String selection = scanner.nextLine();
 
@@ -20,21 +20,21 @@ public class BlackjackTutor {
 
             // Prompts the user to enter a starting hand
             // A valid starting hand consists of one dealer card and 2 player cards
-            else if (selection.equals("1")) {
+            if (selection.equals("1")) {
                 // Variables for dealer and player cards
                 String dealerCard;
                 ArrayList<String> playerCards = new ArrayList<>();
                 // List of valid card entries to check player inputs
-                ArrayList<String> validEntries = HandAnalyzer.getCards();
+                ArrayList<String> validEntries = ReferenceTables.getCards();
                 // Boolean to control the while loops in the logic to come
                 Boolean validEntry = false;
 
                 // Lists the valid entries
-                System.out.println("\nValid selections: " + String.join(", ", validEntries));
+                System.out.println("\nValid selections: \n\t" + String.join(", ", validEntries));
 
                 // Prompt to enter dealer's card until a valid entry is made
                 while (validEntry == false) {
-                    System.out.print("What card is the dealer showing? ");
+                    System.out.print("\nWhat card is the dealer showing? ");
                     selection = scanner.nextLine().toUpperCase(); 
                     if (validEntries.contains(selection)) {
                         validEntry = true;
@@ -49,7 +49,7 @@ public class BlackjackTutor {
                 while (validEntry == false) {
                     // Prompt player for 1st card, will repeat until valid entry made
                     do {
-                        System.out.print("Enter your first card: ");
+                        System.out.print("What is your 1st card? ");
                         selection = scanner.nextLine().toUpperCase();
                         if (validEntries.contains(selection)) {
                             playerCards.add(selection);
@@ -60,7 +60,7 @@ public class BlackjackTutor {
                     while (!validEntries.contains(selection));
                     // Prompt player for 2nd card, will repeat until valid entry made
                     do {
-                        System.out.print("Enter your second card: ");
+                        System.out.print("What is your 2nd card? ");
                         selection = scanner.nextLine().toUpperCase();
                         if (validEntries.contains(selection)) {
                             playerCards.add(selection);
@@ -74,6 +74,17 @@ public class BlackjackTutor {
                 Hand thisHand = new Hand(dealerCard, playerCards);
                 System.out.println("\nThe dealer has: " + dealerCard + "\nYou have: " + String.join(", ", playerCards));
                 System.out.println("You should: " + HandAnalyzer.analyze(thisHand));
+            }
+
+            // Generate a random hand and quiz the player on best play
+            if (selection.equals("2")) {
+                Hand randomHand = new Hand();
+                System.out.println("\nThe dealer has: " + randomHand.getDealerCard());
+                System.out.println("You have: " + String.join(", ", randomHand.getPlayerCards()));
+                System.out.println("What should you do? ");
+                System.out.println("\t1: Surrender\n\t2: Split\n\t3: Double\n\t4: Hit\n\t5: Stand");
+                System.out.print("Selection: ");
+
             }
         }
         scanner.close();

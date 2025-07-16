@@ -4,6 +4,13 @@ public class Hand {
     private String dealerCard;
     private ArrayList<String> playerCards;
 
+    public Hand() {
+        dealerCard = ReferenceTables.getRandomCard();
+        playerCards = new ArrayList<>();
+        playerCards.add(ReferenceTables.getRandomCard());
+        playerCards.add(ReferenceTables.getRandomCard());
+    }
+
     public Hand(String dealerCard, ArrayList<String> playerCards) {
         this.dealerCard = dealerCard;
         this.playerCards = playerCards;
