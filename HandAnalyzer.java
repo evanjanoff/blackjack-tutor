@@ -46,6 +46,9 @@ public class HandAnalyzer {
         // Remaining logic depends on if the player has an ace in their hand
         // Check for ace
         if (toAnalyze.getPlayerCards().contains("A")) {
+            if (playerCardTotal == 11) {
+                return "Blackjack";
+            } 
             return checkSoftTotal(dealerCardValue, playerCardTotal);
         }
 

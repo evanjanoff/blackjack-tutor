@@ -72,9 +72,16 @@ public class BlackjackTutor {
                     }
                     while (!validEntries.contains(selection));
                 }
+
+                // Initialize new Hand oblject and display optimal play choice
                 Hand thisHand = new Hand(dealerCard, playerCards);
                 System.out.println("\nThe dealer has: " + dealerCard + "\nYou have: " + String.join(", ", playerCards));
-                System.out.println("You should: " + HandAnalyzer.analyze(thisHand));
+                if (HandAnalyzer.analyze(thisHand).equals("Blackjack")) {
+                    System.out.println("21! You win!");
+                } else {
+                    System.out.println("You should: " + HandAnalyzer.analyze(thisHand));
+                }
+                
             }
 
             // Generate a random hand and quiz the player on best play
@@ -87,6 +94,14 @@ public class BlackjackTutor {
 
                     //Generate random hand
                     Hand randomHand = new Hand();
+
+                    // Check if the player made 21, if yes, display win message and generate new hand
+                    if (HandAnalyzer.analyze(randomHand).equals("Blackjack")) {
+                        System.out.println("\nThe dealer has: " + randomHand.getDealerCard());
+                        System.out.println("You have: " + String.join(", ", randomHand.getPlayerCards()));
+                        System.out.println("21! You win");
+                        randomHand = new Hand();
+                    }
                     
                     // Code below will repeat until valid entry made
                     boolean validEntry = false;
