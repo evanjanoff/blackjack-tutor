@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class BlackjackTutor {
@@ -33,7 +34,7 @@ public class BlackjackTutor {
                 System.out.println("\nValid selections: \n\t" + String.join(", ", validEntries));
 
                 // Prompt to enter dealer's card until a valid entry is made
-                while (validEntry == false) {
+                while (!validEntry) {
                     System.out.print("\nWhat card is the dealer showing? ");
                     selection = scanner.nextLine().toUpperCase(); 
                     if (validEntries.contains(selection)) {
@@ -46,7 +47,7 @@ public class BlackjackTutor {
                 validEntry = false;
 
                 // Prompt the player to enter 2 cards for hand
-                while (validEntry == false) {
+                while (!validEntry) {
                     // Prompt player for 1st card, will repeat until valid entry made
                     do {
                         System.out.print("What is your 1st card? ");
@@ -78,32 +79,70 @@ public class BlackjackTutor {
 
             // Generate a random hand and quiz the player on best play
             if (selection.equals("2")) {
-                String[] gameMoves = {"Surrender", "Split", "Double", "Hit", "Stand"};
                 String newHand = "y";
-                while (!newHand.equals("n")) {
+                
+                do {
+                    // Array containing the possible moves for the game
+                    String[] gameMoves = {"surrender", "split", "double", "hit", "stand"};
+
+                    //Generate random hand
                     Hand randomHand = new Hand();
-                    System.out.println("\nThe dealer has: " + randomHand.getDealerCard());
-                    System.out.println("You have: " + String.join(", ", randomHand.getPlayerCards()));
-                    System.out.println("\nWhat should you do?");
-                    for (int i = 0; i < gameMoves.length; i++) {
-                        System.out.println("\t" + (i + 1) + ": " + gameMoves[i]);
-                    }
-                    System.out.print("Selection: ");
-                    selection = scanner.nextLine().toLowerCase();
-                    if (selection.equals("1") || selection.equals("surrender")) {
-                        System.out.println("\nYou chose: surrender\nOptimal play: " + HandAnalyzer.analyze(randomHand));
-                    }
+                    
+                    // Code below will repeat until valid entry made
                     boolean validEntry = false;
-                    while (validEntry == false) {
+                    do {
+                        // Display the cards of the dealer and the player
+                        System.out.println("\nThe dealer has: " + randomHand.getDealerCard());
+                        System.out.println("You have: " + String.join(", ", randomHand.getPlayerCards()));
+                        System.out.println("\nWhat should you do?");
+
+                        // Print each play option with the 1st letter capitalised
+                        for (int i = 0; i < gameMoves.length; i++) {
+                            System.out.println("\t" + (i + 1) + ": " + gameMoves[i].substring(0, 1).toUpperCase() + gameMoves[i].substring(1));
+                        }
+
+                        // Prompt for player's selection
+                        // Player can enter choice by selecting menu number or typing out command
+                        System.out.print("Selection: ");
+                        selection = scanner.nextLine().toLowerCase();
+
+                        // Check to see if the player entered a valid integer and display results
+                        try{
+                            int menuNumber = Integer.parseInt(selection);
+                            if (Integer.valueOf(menuNumber) >= 1 && Integer.valueOf(menuNumber) <= 5) {
+                                System.out.println("\nYou chose: " + gameMoves[menuNumber - 1].substring(0, 1).toUpperCase() + 
+                                gameMoves[menuNumber - 1].substring(1) + "\nOptimal play: " + HandAnalyzer.analyze(randomHand));
+                                validEntry = true;
+                            } else {
+                                System.out.println("Invalid entry");
+                            }
+
+                        // If the player entered a string instead, check if it's a valid command and display results
+                        } catch (NumberFormatException e) {
+                            if (Arrays.asList(gameMoves).contains(selection)) {
+                                System.out.println("\nYou chose: " + selection.substring(0, 1).toUpperCase() + selection.substring(1) +
+                                "\nOptimal play: " + HandAnalyzer.analyze(randomHand));
+                                validEntry = true;
+                            } else {
+                                System.out.println("Invalid entry");
+                            }
+                        }
+                    } while (!validEntry);
+
+                    // Reset validEntry boolean for next loop
+                    validEntry = false;
+                    while (!validEntry) {
+                        // Prompt for another hand and verify input
                         System.out.print("\nAnother hand? Y/N: ");
-                        newHand = scanner.nextLine().toLowerCase(); 
+                        newHand = scanner.nextLine().toLowerCase();
                         if (newHand.equals("y") || newHand.equals("n")) {
                             validEntry = true;
                         }
-                        else
-                            System.out.println("Invalid selection");
+                        else {
+                            System.out.println("Invalid entry");
+                        }
                     }
-                }
+                } while (newHand.equals("y"));
             }
         }
         scanner.close();
